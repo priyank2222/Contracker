@@ -35,8 +35,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentActivity extends AppCompatActivity {
 
+    // Ui component declaration
     private RecyclerView commentList;
     private Toolbar mToolbar;
+    // Firebase methods declaration
     private DatabaseReference commentRef;
     private DatabaseReference userRef;
     private DatabaseReference historyRef;
@@ -50,6 +52,7 @@ public class CommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
+          // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         commentRef = FirebaseDatabase.getInstance().getReference().child("Comments").child(currentUserID);
@@ -59,6 +62,7 @@ public class CommentActivity extends AppCompatActivity {
         serviceDeleteRef =  FirebaseDatabase.getInstance().getReference().child("Services");
         postsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
+        // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.comment_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Comments");
@@ -73,7 +77,7 @@ public class CommentActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+     //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<Comments, CommentsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Comments, CommentsViewHolder>
                         (
@@ -83,6 +87,7 @@ public class CommentActivity extends AppCompatActivity {
                                 commentRef
                         ) {
 
+             // bind comments object to the viewholder
                     @Override
                     protected void populateViewHolder(final CommentsViewHolder viewHolder, Comments model, int position) {
                         viewHolder.setCommentbody(model.getCommentbody());
@@ -97,7 +102,7 @@ public class CommentActivity extends AppCompatActivity {
     }
 
 
-
+ // view holder displaying each item
     public static class CommentsViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -106,17 +111,20 @@ public class CommentActivity extends AppCompatActivity {
             mView = itemView;
         }
 
+        // set comment content
         public void setCommentbody(String commentBody){
 
             TextView comment = (TextView) mView.findViewById(R.id.all_comment_comments);
             comment.setText(commentBody);
         }
+        //set username
         public void setSenderUsername(String senderUsername) {
             TextView commentwriter = (TextView) mView.findViewById(R.id.all_comment_username);
             commentwriter.setText(senderUsername);
 
         }
 
+        //set time stamp
         public void setDatestamp(String datestamp){
             TextView date = (TextView) mView.findViewById(R.id.all_comment_date);
             date.setText(datestamp);
