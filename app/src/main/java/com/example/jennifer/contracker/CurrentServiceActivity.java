@@ -33,8 +33,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CurrentServiceActivity extends AppCompatActivity {
 
+     // Ui component declaration
     private RecyclerView serviceList;
     private Toolbar mToolbar;
+    // Firebase methods declaration
     private DatabaseReference serviceRef;
     private DatabaseReference userRef;
     private DatabaseReference historyRef;
@@ -50,6 +52,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_service);
 
+         // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         serviceRef = FirebaseDatabase.getInstance().getReference().child("Services").child(currentUserID);
@@ -60,6 +63,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         postsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         jobinforef = FirebaseDatabase.getInstance().getReference().child("Services");
 
+         // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.toolbar_service);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Current Service");
@@ -75,6 +79,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+         //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<Services,ServicesViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Services, ServicesViewHolder>
                         (
@@ -84,7 +89,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                 serviceRef
                         ) {
 
-
+                 // bind services object to the viewholder
                     @Override
                     protected void populateViewHolder(final ServicesViewHolder viewHolder, Services model, int position)
                     {
@@ -321,6 +326,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         serviceList.setAdapter(firebaseRecyclerAdapter);
     }
 
+    // send user to payment view
     private void sendToPayment(float balance, String listUserID, String currentUserID) {
         Intent paymentIntent = new Intent(getApplicationContext(), ChargePayment.class);
         paymentIntent.putExtra("balance", balance);
@@ -329,6 +335,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         startActivity(paymentIntent);
     }
 
+    //send user to chat view
     private void sendToChat(String listUserID)
     {
         Intent chatIntent = new Intent(getApplicationContext(), ChatActivity.class);
@@ -344,28 +351,34 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
     }
 
+    //when user completes the task, save infomation to database
     private void jobComplete(String currentUserID, String listUserID){
         jobinforef.child(currentUserID).child(listUserID).child("completed").setValue(true);
     }
 
+    //create data when user completes the task
     private void completeTask(final String listUserID)
     {
+        //create time stamp 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MM-dd-yyyy");
         final String saveCurrentDate = currentDate.format(calendar.getTime());
 
+        //save date to firebase database
         postsRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //check data node existence
                 if (dataSnapshot.exists())
                 {
-
+                    //get data from firebase
                     final String jobTitle = dataSnapshot.child("job_title").getValue().toString();
                     final String jobDescription = dataSnapshot.child("job_description").getValue().toString();
                     final String jobLocation = dataSnapshot.child("job_location").getValue().toString();
                     final String category = dataSnapshot.child("service_category").getValue().toString();
 
+                    //set data onto firebase
                     historyRef.child(currentUserID).child(listUserID).child("job_title").setValue(jobTitle);
                     historyRef.child(currentUserID).child(listUserID).child("job_description").setValue(jobDescription);
                     historyRef.child(currentUserID).child(listUserID).child("job_location").setValue(jobLocation);
@@ -376,6 +389,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
 
+                                     //set data onto firebase
                                     historyRef.child(listUserID).child(currentUserID).child("job_title").setValue(jobTitle);
                                     historyRef.child(listUserID).child(currentUserID).child("job_description").setValue(jobDescription);
                                     historyRef.child(listUserID).child(currentUserID).child("job_location").setValue(jobLocation);
@@ -386,14 +400,17 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
 
+                                                    //when task succed, removing the data in database
                                                     serviceDeleteRef.child(currentUserID).child(listUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()) {
+                                                                //when task succed, removing the data in database
                                                                 serviceDeleteRef.child(listUserID).child(currentUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         if (task.isSuccessful()) {
+                                                                            //when task succed, removing the data in database
                                                                             postsRef.child(currentUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                 @Override
                                                                                 public void onComplete(@NonNull Task task) {
@@ -429,6 +446,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
 
 
+     // view holder displaying each item
     public static class ServicesViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -437,27 +455,32 @@ public class CurrentServiceActivity extends AppCompatActivity {
             mView = itemView;
         }
 
+        //set estimated hour text
         public void setEstimated_hour(String estimated_hour){
 
             TextView hour = (TextView) mView.findViewById(R.id.current_service_hours);
             hour.setText(estimated_hour +"hr");
         }
+        //set hourlt rate text
         public void setHourly_rate(String hourly_rate) {
             TextView rate = (TextView) mView.findViewById(R.id.current_service_price);
             rate.setText("$"+hourly_rate +"per/hr");
 
         }
 
+        //set username text
         public void setUsername(String name) {
             TextView username = (TextView) mView.findViewById(R.id.current_service_username);
             username.setText(name);
         }
 
+        // set user image
         public void setUser_Image(String image, Context ctx) {
             CircleImageView profileImage = (CircleImageView) mView.findViewById(R.id.current_service_profile_image);
             Picasso.with(ctx).load(image).into(profileImage);
         }
 
+        //set data 
         public void setDate(String date) {
             TextView serviceDate = (TextView) mView.findViewById(R.id.current_service_date);
             serviceDate.setText(date);
