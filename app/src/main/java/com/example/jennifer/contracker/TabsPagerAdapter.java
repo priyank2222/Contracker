@@ -10,27 +10,30 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 class TabsPagerAdapter extends FragmentPagerAdapter {
-
+    
+    //implement the bottom tab
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
+    //user can select different tab bar menu options 
     @Override
     public Fragment getItem(int position) {
         switch (position){
+            //go to the job page
             case 0:
                 JobsFragment jobsFragment = new JobsFragment();
                 return jobsFragment;
-
+            
+            //go to the chat page
             case 1:
                 ChatsFragment chatsFragment = new ChatsFragment();
                 return chatsFragment;
 
+            //go to the profile page
             case 2:
                 FriendsFragment friendsFragment = new FriendsFragment();
                 return friendsFragment;
-
-
 
             default:
                 return null;
