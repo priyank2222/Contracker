@@ -41,8 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
-
         emailRegisterTxt = (EditText) findViewById(R.id.emailRegisterTxt);
         passwordRegisterTxt =(EditText) findViewById(R.id.passwordRegisterTxt);
         confirmPasswordTxt =(EditText) findViewById(R.id.confirmPasswordTxt);
@@ -56,12 +54,10 @@ public class RegisterActivity extends AppCompatActivity {
         //progress dialog
         mProgressDialog = new ProgressDialog(this);
 
-
         createAccountRegisterBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
 
                 String email = emailRegisterTxt.getText().toString();
                 String password = passwordRegisterTxt.getText().toString();
@@ -72,7 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
+    
+    //Check if the user has filled out all registration requirements 
     private void registerUserAccount(String email, String password, String confirmPassword)
     {
 
@@ -88,11 +85,14 @@ public class RegisterActivity extends AppCompatActivity {
         if(!password.equals(confirmPassword)){
             Toast.makeText(getApplicationContext(),"Password should match.",Toast.LENGTH_SHORT).show();
         }
+        
+        //if all requirements are completed successfully
         else{
             mProgressDialog.setTitle("Creating New Account");
             mProgressDialog.setMessage("Please wait, while we creating account for you.");
             mProgressDialog.show();
-
+            
+            //create the user account
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -106,11 +106,11 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Error: "+ error,Toast.LENGTH_SHORT).show();
                     }
                     mProgressDialog.dismiss();
-
+                    //send the email verification
                     sendVerification();
-
+                    
                     mAuth.signOut();
-
+                    //send the user to the login page
                     Intent i = new Intent(getApplicationContext() , LoginActivity.class);
                     i.putExtra("register" , "fromregisteractivity");
                     startActivity(i);
@@ -121,17 +121,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
-
+    //email verification process
     private void sendVerification()
     {
         final FirebaseUser user = mAuth.getCurrentUser();
-
+        
         user.sendEmailVerification()
                 .addOnCompleteListener(this, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-
-
+                        
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(),
                                     "Verification email sent to " + user.getEmail(),
@@ -146,15 +145,17 @@ public class RegisterActivity extends AppCompatActivity {
                 });
 
     }
-
+    
+    //after a user logs in, send them to the settings page
     private void sendUserToSettingActivity() {
 
         Intent settingIntent = new Intent(getApplicationContext(),SettingActivity.class);
         settingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(settingIntent);
         finish();
-
     }
+    
+    //send user to edit their profile
     private void sendUserToEditProfileActivity() {
 
         Intent editIntent = new Intent(getApplicationContext(),EditProfileActivity.class);
@@ -163,19 +164,18 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
 
     }
-
+    //check if user is currently logged in, if they are, send them to the main activity.
     @Override
     protected void onStart() {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-
             sendUserToMainActivity();
         }
     }
 
-
+    //send user to the main activity if they are logged in
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
