@@ -63,6 +63,7 @@ public class SettingActivity extends AppCompatActivity {
 
         databaseSettingReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        //user can click this to edit their profile
         editSettingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,37 +73,40 @@ public class SettingActivity extends AppCompatActivity {
         });
 
     }
-
+    
+    //this looks for changes to the users profile in the database and updates them accordingly 
     @Override
     protected void onStart() {
         super.onStart();
         databaseSettingReference.child(currentUserID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
+                    
+                    //change in username
                     if (dataSnapshot.hasChild("username")) {
-
                         String userName = dataSnapshot.child("username").getValue().toString();
                         settingUserName.setText(userName);
                     }
 
-
+                    //change in image
                     if (dataSnapshot.hasChild("user_image")) {
                         String image = dataSnapshot.child("user_image").getValue().toString();
                         Picasso.with(SettingActivity.this).load(image).placeholder(R.drawable.user_default).into(settingUserImage);
-
-
                     }
+                    
+                    //change in experience
                     if (dataSnapshot.hasChild("experience")) {
                         String experienceContent = dataSnapshot.child("experience").getValue().toString();
                         experienceSettingContentTxt.setText(experienceContent);
                     }
 
+                    //change in expertise
                     if (dataSnapshot.hasChild("expertise")) {
                         String expertiseContent = dataSnapshot.child("expertise").getValue().toString();
                         expertiseContentTxt.setText(expertiseContent);
                     }
 
+                    //change in rating
                     if (dataSnapshot.hasChild("rating")) {
                         String rating = dataSnapshot.child("rating").getValue().toString();
                         expertiseRatingBar.setRating(Float.parseFloat(rating));
