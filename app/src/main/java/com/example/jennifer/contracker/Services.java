@@ -14,6 +14,7 @@ public class Services
 
     }
 
+    //initiate services object - which is used for a contractor to bid on a service 
     public Services(String date, String hourly_rate, String estimated_hour) {
         this.date = date;
         this.hourly_rate = hourly_rate;
