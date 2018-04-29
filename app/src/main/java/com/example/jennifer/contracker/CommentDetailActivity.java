@@ -26,8 +26,11 @@ import java.time.LocalDate;
 
 public class CommentDetailActivity extends AppCompatActivity {
 
+     // Ui component declaration
     private EditText commentInput;
     private Button commentSubmitBtn;
+    
+    // Firebase methods declaration
     private DatabaseReference commentRef;
     private DatabaseReference usernameRef;
     private FirebaseAuth mAuth;
@@ -37,10 +40,12 @@ public class CommentDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_detail);
+         // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         commentRef = FirebaseDatabase.getInstance().getReference().child("Comments");
         usernameRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        // UI component initialization
         commentInput =(EditText) findViewById(R.id.comment_input);
         commentSubmitBtn = (Button) findViewById(R.id.comment_submit_btn);
 
@@ -51,28 +56,35 @@ public class CommentDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 commentSubmitBtn.setEnabled(false);
+                
+                //add comment data into firebase database
                 usernameRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String commentbody = commentInput.getText().toString();
                         String senderusername = dataSnapshot.child("username").getValue().toString();
 
+                        //generating a unique key for each comment
                         DatabaseReference userCommentKey = commentRef.child("Comments").child(receiverUserID).push();
                         String userPushID = userCommentKey.getKey();
                         Date currentDate = new Date(System.currentTimeMillis());
                         String time = currentDate.toString();
 
+                        //put comment data into a hashmap
                         HashMap commentDetail = new HashMap();
                         commentDetail.put("commentbody",commentbody);
                         commentDetail.put("senderusername", senderusername);
                         commentDetail.put("datestamp", time);
                         Map commentBodyDetail = new HashMap();
                         commentBodyDetail.put(receiverUserID+ "/"+userPushID,commentDetail);
+                        
+                        //add comment data into database
                         commentRef.updateChildren(commentBodyDetail).addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {
                                 if(task.isSuccessful()){
                                     Toast.makeText(CommentDetailActivity.this, "Comment added.", Toast.LENGTH_SHORT).show();
+                                    // after successfully adding comments, send user to history activity
                                     Intent backActivity = new Intent(getApplicationContext(),HistoryActivity.class);
                                     startActivity(backActivity);
                                 }
