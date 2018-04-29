@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jennifer.contracker.LoginActivity">
+
+    <!--<include-->
+    <!--android:id="@+id/login_toolbar"-->
+    <!--layout="@layout/app_bar_layout">-->
+
+    <!--</include>-->
+
+    <TextView
+        android:id="@+id/txtSubmitted"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:text="Contracker"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimary"
+        android:textSize="45dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/signUpLoginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtSubmitted"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="Don't have an account? Sign Up."
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/usernameLoginTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordLoginTxt"
+        android:layout_below="@+id/signUpLoginBtn"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="63dp"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textMultiLine|textEmailAddress"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/passwordLoginTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameLoginTxt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textMultiLine|textPassword"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/signInLoginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/passwordLoginTxt"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/custom_layout_border_color"
+        android:text="Log in"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogle"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp">
+
+    </com.google.android.gms.common.SignInButton>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnGoogle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:text="Sign in with your Google account"
+        android:textSize="12dp" />
+
+</RelativeLayout>

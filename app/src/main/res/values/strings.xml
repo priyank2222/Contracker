@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Contracker</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="serviceCategory">
+        <item>Customer</item>
+        <item>Carpentry</item>
+        <item>Construction</item>
+        <item>Electrical</item>
+        <item>Gardening</item>
+        <item>Mechanical</item>
+        <item>Plumbing</item>
+        <item>Technical</item>
+    </string-array>
+
+    <string-array name="serviceCategoryPosts">
+        <item>Carpentry</item>
+        <item>Construction</item>
+        <item>Electrical</item>
+        <item>Gardening</item>
+        <item>Mechanical</item>
+        <item>Plumbing</item>
+        <item>Technical</item>
+
+    </string-array>
+
+
+    <string name="submit">Submit</string>
+    <string name="amount">Amount</string>
+    <string name="dollars">Dollars</string>
+    <string name="dollarsign">$</string>
+    <string name="cents">Cents</string>
+    <string name="decimal">.</string>
+    <string name="submit_payment">Submit Payment</string>
+    <string name="mainTextView">TextView</string>
+    <string name="transferdebit">Please enter your debit card information.</string>
+
+
+    <string name="service_title">ExampleServiceTitle</string>
+    <string name="contractor_name">ExampleContractorName</string>
+    <string name="finalize_payment">FinalizePayment</string>
+</resources>

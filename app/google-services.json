@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "502182395600",
+    "firebase_url": "https://contracker-789c6.firebaseio.com",
+    "project_id": "contracker-789c6",
+    "storage_bucket": "contracker-789c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502182395600:android:31b0de65f741bcc8",
+        "android_client_info": {
+          "package_name": "com.example.jennifer.contracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502182395600-gk8fokadd7uf938gccis5t1jm6h8a73v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7YjSWfaOsE5B1hX_oXaAJGueB_ft8vG8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

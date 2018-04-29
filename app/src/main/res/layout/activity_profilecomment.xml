@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_commentsender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textAlignment="textEnd"
+        android:textSize="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_datestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="date "
+        android:textAlignment="textEnd"
+        android:textSize="10dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txt_commentbody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comment Body"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

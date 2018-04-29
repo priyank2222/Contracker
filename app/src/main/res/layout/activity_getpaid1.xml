@@ -1,0 +1,115 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!--<include-->
+        <!--android:id="@+id/getpaid_toolbar"-->
+        <!--layout="@layout/app_bar_layout">-->
+
+    <!--</include>-->
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight=".1"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView5"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="3"-->
+            <!--android:text="@string/dollarsign"-->
+            <!--android:textSize="20dp" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/edtDollar"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:ems="10"-->
+            <!--android:inputType="number" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/txtDec"-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="3"-->
+            <!--android:text="@string/decimal"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/editText"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:ems="10"-->
+            <!--android:inputType="number" />-->
+    <!--</LinearLayout>-->
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <TextView
+        android:id="@+id/txtAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:contentDescription="Shows the current balance"
+        android:text="Balance"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnPayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight=".1"
+        android:background="@drawable/custom_layout_border_color"
+        android:text="Transfer To Bank"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/txtInfoStr2"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="20px"
+        android:layout_weight=".5"
+        android:text="Please allow 5-7 business days for processing."
+        android:textAlignment="center"
+        android:textSize="14dp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/btnreturn"
+        android:layout_width="160dp"
+        android:layout_height="5dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="30dp"
+        android:layout_weight=".25"
+        android:background="@color/colorPrimary"
+        android:text="Return to Main Menu"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="12dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+</LinearLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    tools:context="com.example.jennifer.contracker.ChatActivity"
+    >
+
+    <include
+        android:id="@+id/chat_toolbar"
+        layout="@layout/app_bar_layout">
+
+    </include>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/messages_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/chat_toolbar"
+        android:layout_above="@+id/view">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dfdfdf"
+        android:layout_above="@id/layout_chatbox"
+       >
+
+    </View>
+
+
+    <LinearLayout
+        android:id="@+id/layout_chatbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:minHeight="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+
+        <ImageButton
+            android:id="@+id/chat_send_image_btn"
+            android:layout_width="64dp"
+            android:layout_height="48dp"
+            android:background="@android:color/background_light"
+            android:src="@drawable/ic_send_image_btn" />
+
+        <EditText
+            android:id="@+id/chat_input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:hint="Write a message..."
+            android:maxLines="6" />
+
+        <ImageButton
+            android:id="@+id/chat_send_message_btn"
+            android:layout_width="64dp"
+            android:layout_height="48dp"
+            android:background="@android:color/background_light"
+            android:src="@drawable/ic_send_message_btn" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
