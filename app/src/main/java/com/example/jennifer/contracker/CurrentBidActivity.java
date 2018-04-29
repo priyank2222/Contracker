@@ -33,8 +33,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CurrentBidActivity extends AppCompatActivity {
 
+     // Ui component declaration
     private RecyclerView bidsList;
     private Toolbar mToolbar;
+    // Firebase methods declaration
     private DatabaseReference rootRef;
     private DatabaseReference userRef;
     private DatabaseReference bidsRef;
@@ -46,20 +48,18 @@ public class CurrentBidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_bid);
-
+         // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         rootRef = FirebaseDatabase.getInstance().getReference().child("Bids").child(currentUserID);
         bidsRef = FirebaseDatabase.getInstance().getReference().child("Bids");
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         serviceRef = FirebaseDatabase.getInstance().getReference().child("Services");
+         // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.bids_toolbar);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Current Bids");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         bidsList = (RecyclerView) findViewById(R.id.bids_list);
 
         bidsList.setLayoutManager(new LinearLayoutManager(this));
@@ -69,7 +69,7 @@ public class CurrentBidActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<Bids,BidsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Bids, BidsViewHolder>
                         (
@@ -78,6 +78,7 @@ public class CurrentBidActivity extends AppCompatActivity {
                                 BidsViewHolder.class,
                                 rootRef
                         ) {
+            // bind bids object to the viewholder
             @Override
             protected void populateViewHolder(final BidsViewHolder viewHolder, Bids model, int position)
             {
@@ -136,7 +137,7 @@ public class CurrentBidActivity extends AppCompatActivity {
                                                         "Decline Bid"
 
                                                 };
-
+                                        //alert dialog displaying when user clicks on the item list
                                         AlertDialog.Builder builder = new AlertDialog.Builder(CurrentBidActivity.this);
                                         builder.setTitle("Select Options");
 
@@ -172,13 +173,9 @@ public class CurrentBidActivity extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         String name = dataSnapshot.child("username").getValue().toString();
 
-
                                         viewHolder.setUsername(name);
                                         viewHolder.mView.findViewById(R.id.current_bid_profile_image)
                                                 .setVisibility(View.INVISIBLE);
-
-
-
 
                                     }
 
@@ -248,12 +245,15 @@ public class CurrentBidActivity extends AppCompatActivity {
         declineBid(listUserID);
     }
 
+    // decline bid method to cancel the bid request 
     private void declineBid(final String listUserID)
     {
+        // remove the data from firebase database
         bidsRef.child(currentUserID).child(listUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    //when success, deleting another users' data
                     bidsRef.child(listUserID).child(currentUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -270,22 +270,26 @@ public class CurrentBidActivity extends AppCompatActivity {
 
     }
 
+    //accept bid method when user clicks accept bid
     private void acceptBid(final String listUserID)
     {
+        //get date and time 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MM-dd-yyyy");
         final String saveCurrentDate = currentDate.format(calendar.getTime());
 
+        //add data into firebase database
         bidsRef.child(currentUserID).child(listUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //check if data exists
                 if(dataSnapshot.exists())
                 {
-
 
                     final String estimatedHour = dataSnapshot.child("estimated_hour").getValue().toString();
                     final String hourlyRate= dataSnapshot.child("hourly_rate").getValue().toString();
 
+                    //bind data to UI
                     serviceRef.child(currentUserID).child(listUserID).child("estimated_hour").setValue(estimatedHour);
                     serviceRef.child(currentUserID).child(listUserID).child("hourly_rate").setValue(hourlyRate);
                     serviceRef.child(currentUserID).child(listUserID).child("request_type").setValue("sent");
@@ -293,7 +297,7 @@ public class CurrentBidActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-
+                                    //bind data to UI
                                     serviceRef.child(listUserID).child(currentUserID).child("hourly_rate").setValue(hourlyRate);
                                     serviceRef.child(listUserID).child(currentUserID).child("estimated_hour").setValue(estimatedHour);
                                     serviceRef.child(listUserID).child(currentUserID).child("request_type").setValue("received");
@@ -335,6 +339,7 @@ public class CurrentBidActivity extends AppCompatActivity {
 
     }
 
+     // view holder displaying each item
     public static class BidsViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -342,23 +347,27 @@ public class CurrentBidActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
         }
-
+ 
+        //set estimated hours text
         public void setEstimated_hour(String estimated_hour){
 
             TextView hour = (TextView) mView.findViewById(R.id.current_bid_hour);
             hour.setText(estimated_hour +"hr");
         }
+        //set hourly rate text
         public void setHourly_rate(String hourly_rate) {
             TextView rate = (TextView) mView.findViewById(R.id.current_bid_price);
             rate.setText("$"+hourly_rate +"per/hr");
 
         }
 
+        //set user name text
         public void setUsername(String name) {
             TextView username = (TextView) mView.findViewById(R.id.current_bid_username);
             username.setText(name);
         }
 
+        //set user image
         public void setUser_Image(String image, Context ctx) {
             CircleImageView profileImage = (CircleImageView) mView.findViewById(R.id.current_bid_profile_image);
             Picasso.with(ctx).load(image).into(profileImage);
