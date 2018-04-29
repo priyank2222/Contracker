@@ -82,7 +82,7 @@ public class PostDetailActivity extends AppCompatActivity {
         final String hourlyRate = postDetailHourlyRate.getText().toString();
         final String estimatedHour = postDetailEstimatedHour.getText().toString();
 
-        if(TextUtils.isEmpty(hourlyRate) || TextUtils.isDigitsOnly(hourlyRate)){
+        if(TextUtils.isEmpty(hourlyRate) || TextUtils.isDigitsOnly(hourlyRate) == false){
             Toast.makeText(this, "Incorrect Input", Toast.LENGTH_SHORT).show();
         }
         if(TextUtils.isEmpty(estimatedHour) || TextUtils.isDigitsOnly(estimatedHour) == false) {
