@@ -11,7 +11,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-
+        //splash screen loads for 3 seconds, and then goes to Main page. 
         Thread thread = new Thread(){
             @Override
             public void run() {
