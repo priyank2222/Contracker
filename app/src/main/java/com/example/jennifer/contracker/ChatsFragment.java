@@ -31,9 +31,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatsFragment extends Fragment {
 
 
+    // Ui component declaration
     private View mMainView;
     private RecyclerView chatsList;
 
+    // Firebase methods declaration
     private FirebaseAuth mAuth;
     private DatabaseReference messagesReference;
     private DatabaseReference usersReference;
@@ -51,12 +53,14 @@ public class ChatsFragment extends Fragment {
         // Inflate the layout for this fragment
         mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
 
+        // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         messagesReference = FirebaseDatabase.getInstance().getReference().child("Messages").child(currentUserID);
 
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        // UI component initialization
         chatsList = (RecyclerView) mMainView.findViewById(R.id.chats_list);
 
         chatsList.setHasFixedSize(true);
@@ -70,6 +74,7 @@ public class ChatsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<Chats,ChatsViewHolder> firebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<Chats, ChatsViewHolder>
                 (
@@ -79,6 +84,7 @@ public class ChatsFragment extends Fragment {
                         messagesReference
                 )
         {
+            // bind chats object to the viewholder
             @Override
             protected void populateViewHolder(final ChatsViewHolder viewHolder, Chats model, int position) {
 
@@ -124,6 +130,7 @@ public class ChatsFragment extends Fragment {
 
     }
 
+    // view holder displaying each item
     public static class ChatsViewHolder extends RecyclerView.ViewHolder
     {
 
@@ -135,11 +142,12 @@ public class ChatsFragment extends Fragment {
             mView = itemView;
         }
 
+        // set user name 
         public void setUserName(String userName){
             TextView userNameDisplay = (TextView) mView.findViewById(R.id.all_users_user_name);
             userNameDisplay.setText(userName);
         }
-
+        // set user image
         public void setThumbImage(final String thumbImage, final Context ctx) {
 
             final CircleImageView thumb_Image= (CircleImageView) mView.findViewById(R.id.all_users_profile_image);
@@ -147,7 +155,7 @@ public class ChatsFragment extends Fragment {
                     .into(thumb_Image);
         }
 
-
+        //set user expertise
         public void setExpertise(String expertise) {
             TextView exp = (TextView)mView.findViewById(R.id.all_users_expertise);
             exp.setText("Role: " + expertise);
