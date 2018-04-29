@@ -22,6 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AllUsersActivity extends AppCompatActivity {
 
 
+    // UI components declaration
     private Toolbar mToolbar;
     private RecyclerView allUserslists;
 
@@ -32,6 +33,7 @@ public class AllUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_users);
 
+        //UI initialization
         mToolbar = (Toolbar)findViewById(R.id.all_users_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("All Users");
@@ -52,6 +54,7 @@ public class AllUsersActivity extends AppCompatActivity {
         super.onStart();
 
 
+        // firebase recycler view adpater
         FirebaseRecyclerAdapter<AllUsers,AllUsersViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<AllUsers, AllUsersViewHolder>
                 (AllUsers.class,
                         R.layout.all_users_display_layout,
@@ -59,15 +62,19 @@ public class AllUsersActivity extends AppCompatActivity {
                         allUsersDatabaseReference
 
                 ) {
+
+            //convert xml and data into view
             @Override
             protected void populateViewHolder(AllUsersViewHolder viewHolder, AllUsers model, int position) {
 
 
+                //extract date through model class to fill into view
                 viewHolder.setUsername(model.getUsername());
                 viewHolder.setUser_image(getApplicationContext(),model.getUser_image());
                 viewHolder.setExpertise(model.getExpertise());
                 final String listUserID = getRef(position).getKey();
 
+                //view click listener
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view)
@@ -79,6 +86,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
                                 };
 
+                        // alert dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(AllUsersActivity.this);
                         builder.setTitle("Select Options");
 
@@ -107,7 +115,7 @@ public class AllUsersActivity extends AppCompatActivity {
         allUserslists.setAdapter(firebaseRecyclerAdapter);
     }
 
-
+    //view holder class
     public static class AllUsersViewHolder extends RecyclerView.ViewHolder{
 
         View mView;
@@ -119,17 +127,17 @@ public class AllUsersActivity extends AppCompatActivity {
         }
 
 
-
+        // set username referencing xml file id
         public void setUsername(String username){
             TextView name = (TextView) mView.findViewById(R.id.all_users_user_name);
             name.setText(username);
         }
-
+        // set user image referencing xml file id
         public void setUser_image(Context ctx, String user_image){
             CircleImageView image = (CircleImageView) mView.findViewById(R.id.all_users_profile_image);
             Picasso.with(ctx).load(user_image).placeholder(R.drawable.user_default).into(image);
         }
-
+        // set user expertise referencing xml file id
         public void setExpertise(String expertise){
             TextView role = (TextView) mView.findViewById(R.id.all_users_expertise);
             role.setText("Role: " + expertise);
