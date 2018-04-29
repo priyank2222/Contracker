@@ -31,6 +31,7 @@ import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
 
+    // UI component declaration
     private Toolbar mToolbar;
     private TextView chatBarUsername;
     private ImageButton sendMessageBtn;
@@ -40,6 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<Messages> userMessagesList = new ArrayList<>();
 
+    // firebase initialization
     private DatabaseReference rootRef;
     private FirebaseAuth mAuth;
     String currentUserID;
@@ -50,6 +52,8 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        
+        //initialize firebase and UI components
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
 
@@ -66,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
 
-
+        // call layout inflater service
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View actionBarView = layoutInflater.inflate(R.layout.char_bar_custom_view,null);
         actionBar.setCustomView(actionBarView);
@@ -84,8 +88,7 @@ public class ChatActivity extends AppCompatActivity {
         fetchMessages();
 
 
-
-
+        // firebase database retreival
         rootRef.child("Users").child(receiverID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,7 +103,7 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-
+        // button onclick listener
        sendMessageBtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view)
@@ -112,6 +115,7 @@ public class ChatActivity extends AppCompatActivity {
         //Toast.makeText(this, receiverID, Toast.LENGTH_SHORT).show();
     }
 
+    // fetch data from database
     private void fetchMessages()
     {
         rootRef.child("Messages").child(currentUserID).child(receiverID).addChildEventListener(new ChildEventListener() {
@@ -147,14 +151,17 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    //send message method to get input from textedit and save into firebase database
     private void sendMessage()
     {
         String messageText = inputMessageTxt.getText().toString();
+        //check if edit text is empty
         if(TextUtils.isEmpty(messageText)){
             Toast.makeText(ChatActivity.this, "Please write your message.", Toast.LENGTH_SHORT).show();
         }
         else
         {
+            // database path
             String messageSenderRef = "Messages/"+currentUserID +"/"+ receiverID;
 
             String messageReceiverRef = "Messages/"+receiverID +"/"+ currentUserID;
@@ -164,6 +171,7 @@ public class ChatActivity extends AppCompatActivity {
 
             String userPushID = userMessageKey.getKey();
 
+            // put data inside hasmap
             Map messageTextBody = new HashMap();
             messageTextBody.put("message",messageText);
             messageTextBody.put("seen",false);
@@ -176,6 +184,7 @@ public class ChatActivity extends AppCompatActivity {
             messageBodyDetail.put(messageSenderRef+ "/"+userPushID,messageTextBody);
             messageBodyDetail.put(messageReceiverRef+ "/"+userPushID,messageTextBody);
 
+            //put hashmap data into firebase database
             rootRef.updateChildren(messageBodyDetail, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference)
