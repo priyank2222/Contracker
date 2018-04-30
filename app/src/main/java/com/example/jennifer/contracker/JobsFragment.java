@@ -259,17 +259,20 @@ public class JobsFragment extends Fragment {
 //          bid.setText("Close Bidding In: "+close_bidding);
 //        }
 
+        //set username text
         public void setUsername(String userName) {
             TextView name = (TextView)mView.findViewById(R.id.all_posts_username);
             name.setText(userName);
         }
 
+        //set user image
         public void setUser_Image(String userImage, Context ctx) {
             final CircleImageView thumb_Image= (CircleImageView) mView.findViewById(R.id.all_posts_profile_image);
             Picasso.with(ctx).load(userImage).placeholder(R.drawable.user_default)
                     .into(thumb_Image);
         }
 
+        //set user experience
         public void setExperience(String userExperience) {
             TextView experience = (TextView)mView.findViewById(R.id.all_posts_experience);
             experience.setText(userExperience);
