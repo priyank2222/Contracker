@@ -35,7 +35,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class JobsFragment extends Fragment {
 
+    // Ui component declaration
     private RecyclerView mPostsList;
+     // Firebase methods declaration
     private DatabaseReference postsDatabaseRef;
     private DatabaseReference rootDatabaseRef;
     private DatabaseReference postsDeleteRef;
@@ -54,8 +56,10 @@ public class JobsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         jobMainView = inflater.inflate(R.layout.fragment_jobs, container, false);
+         // UI component initialization
         mPostsList = (RecyclerView)jobMainView.findViewById(R.id.posts_list);
 
+         // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         rootDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -64,9 +68,6 @@ public class JobsFragment extends Fragment {
 
 
         mPostsList.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
         return jobMainView;
     }
 
@@ -75,8 +76,11 @@ public class JobsFragment extends Fragment {
         super.onStart();
 
 
+         //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<Posts,PostsViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Posts, PostsViewHolder>
                 (Posts.class,R.layout.all_posts_display_layout,PostsViewHolder.class,postsDatabaseRef) {
+            
+              // bind posts object to the viewholder
             @Override
             protected void populateViewHolder(final PostsViewHolder viewHolder, Posts model, final int position) {
 
@@ -90,6 +94,7 @@ public class JobsFragment extends Fragment {
                 final String listUserID = getRef(position).getKey();
                 viewHolder.mView.findViewById(R.id.all_posts_delete_btn).setVisibility(View.INVISIBLE);
 
+                //check if item position id equals to current user id
                 if(listUserID.equals(currentUserID)){
                     viewHolder.mView.findViewById(R.id.all_posts_delete_btn).setVisibility(View.VISIBLE);
                     viewHolder.mView.findViewById(R.id.all_posts_delete_btn).setOnClickListener(new View.OnClickListener() {
@@ -129,15 +134,16 @@ public class JobsFragment extends Fragment {
                     });
                 }
 
-
                 rootDatabaseRef.child("Users").child(listUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        //check if data exists
                         if(dataSnapshot.hasChild("user_image")){
 
                             String userImage = dataSnapshot.child("user_image").getValue().toString();
 
+                            //set view content
                             viewHolder.setUser_Image(userImage,getContext());
                         }
                         String userName = dataSnapshot.child("username").getValue().toString();
@@ -215,6 +221,7 @@ public class JobsFragment extends Fragment {
         mPostsList.setAdapter(firebaseRecyclerAdapter);
     }
 
+    // view holder displaying each item
     public static class PostsViewHolder extends RecyclerView.ViewHolder{
 
         View mView;
@@ -224,20 +231,24 @@ public class JobsFragment extends Fragment {
             mView = itemView;
         }
 
+        //set job title text
         public void setJob_title(String job_title) {
             TextView jobTitle = (TextView) mView.findViewById(R.id.all_posts_job_title);
             jobTitle.setText(job_title);
         }
+        //set job description text
         public void setJob_description(String job_description) {
             TextView description =(TextView)mView.findViewById(R.id.all_posts_description);
             description.setText("Description: \n" +job_description);
         }
 
+        //set job location text
         public void setJob_location(String job_location) {
            TextView location =(TextView) mView.findViewById(R.id.all_posts_location);
            location.setText("Location: "+job_location);
         }
 
+        //set category text
         public void setService_category(String service_category) {
            TextView category = (TextView) mView.findViewById(R.id.all_posts_category);
            category.setText("Category: "+service_category);
