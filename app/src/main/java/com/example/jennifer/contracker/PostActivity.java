@@ -26,15 +26,16 @@ import java.util.HashMap;
 public class PostActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
+     // Ui component declaration
     private Toolbar mToolbar;
     private EditText postJobTitle;
     private EditText postDescription;
     private EditText postLocation;
     private TextView txtviewCategory;
     private String[] categoryArray;
-
     private Button postJobButton;
 
+     // Firebase methods declaration
     private FirebaseAuth mAuth;
     private DatabaseReference postDatabaseRef;
     String currentUserID;
@@ -44,8 +45,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+         // firebase initialization
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Job Posting");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,6 +55,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         currentUserID = mAuth.getCurrentUser().getUid();
         postDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
+         // UI component initialization
         postJobTitle = (EditText) findViewById(R.id.post_job_tile);
         postDescription =(EditText) findViewById(R.id.post_description);
         postLocation = (EditText) findViewById(R.id.post_location);
@@ -81,6 +83,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
+        //call methods for saving data and redirect to main page
         postJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,12 +93,13 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
     }
-
+   //send user to main acitivty
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(mainIntent);
     }
 
+    //save data onto firebase database
     private void savePostOnDatabase() {
 
         String jobTitle = postJobTitle.getText().toString();
@@ -125,6 +129,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 //        }
 
         else{
+            //hashmap to store data
             HashMap postDetail = new HashMap();
             postDetail.put("job_title",jobTitle);
             postDetail.put("job_description",jobDescription);
@@ -132,6 +137,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             postDetail.put("service_category",serviceCategory);
             //postDetail.put("close_bidding",closeBid);
 
+            //push data onto database
             postDatabaseRef.child(currentUserID).updateChildren(postDetail).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
