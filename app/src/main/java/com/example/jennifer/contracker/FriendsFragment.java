@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 public class FriendsFragment extends Fragment implements View.OnClickListener{
 
 
+    // UI components declaration
     private ImageView friendsFragmentProfieImage;
     private Button friendsFragmentProfile;
     private Button friendsFragmentComments;
@@ -35,6 +36,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
     private Button friendsFragmentViewHistoryBtn;
     private View friendsMainView;
 
+    // Firebase methods declaration
     private FirebaseAuth mAuth;
     private DatabaseReference imageDatabaseRef;
     String currentUserID;
@@ -50,6 +52,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         friendsMainView = inflater.inflate(R.layout.fragment_friends, container, false);
 
+        // UI component initialization
         friendsFragmentProfieImage = (ImageView)friendsMainView.findViewById(R.id.friends_fragment_profile_image);
         friendsFragmentUsername =(TextView)friendsMainView.findViewById(R.id.friends_fragment_username);
         friendsFragmentCurrentServiceBtn = (Button)friendsMainView.findViewById(R.id.friends_fragment_current_service);
@@ -58,7 +61,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
         friendsFragmentProfile = (Button)friendsMainView.findViewById(R.id.friends_fragment_user_profile);
         friendsFragmentComments =(Button)friendsMainView.findViewById(R.id.friends_fragment_comments);
 
-        //
+        // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         imageDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
@@ -75,16 +78,19 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
         return friendsMainView;
     }
 
+    //retrive user image from firebase databse
     private void getUserImage()
     {
         imageDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //check if database has user image 
                 if(dataSnapshot.hasChild("user_image")){
                     String image = dataSnapshot.child("user_image").getValue().toString();
                     Picasso.with(getContext()).load(image).placeholder(R.drawable.user_default).into(friendsFragmentProfieImage);
                 }
+                //check if database has username
                 if(dataSnapshot.hasChild("username")){
                     String name = dataSnapshot.child("username").getValue().toString();
                     friendsFragmentUsername.setText(name);
@@ -99,38 +105,46 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    //onclick listener, send user to different acitivity
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+                //sendUserToSettingActivity
             case R.id.friends_fragment_user_profile:
                 sendUserToSettingActivity();
                 break;
 
+                //endUserToCurrentServiceActivity
             case R.id.friends_fragment_current_service:
                 sendUserToCurrentServiceActivity();
                 break;
 
+                //sendUserToCurrentBiddingActivity
             case R.id.friends_fragment_current_bidding:
                 sendUserToCurrentBiddingActivity();
                 break;
 
+                //sendUserToHistoryActivity
             case R.id.friends_fragment_view_history:
                 sendUserToHistoryActivity();
                 break;
 
+                //sendUserToCommentsActivity
             case R.id.friends_fragment_comments:
                 sendUserToCommentsActivity();
                 break;
         }
     }
 
+     //sendUserToCommentsActivity
     private void sendUserToCommentsActivity()
     {
-
+       
         Intent commentIntent = new Intent(getContext(),CommentActivity.class);
         startActivity(commentIntent);
     }
 
+    //sendUserToHistoryActivity
     private void sendUserToHistoryActivity()
     {
         Intent historyIntent = new Intent(getContext(),HistoryActivity.class);
@@ -138,6 +152,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    //sendUserToCurrentBiddingActivity
     private void sendUserToCurrentBiddingActivity()
     {
         Intent bidIntent = new Intent(getContext(),CurrentBidActivity.class);
@@ -145,6 +160,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    //endUserToCurrentServiceActivity
     private void sendUserToCurrentServiceActivity()
     {
         Intent serviceIntent = new Intent(getContext(),CurrentServiceActivity.class);
@@ -152,6 +168,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
 
     }
 
+     //sendUserToSettingActivity
     private void sendUserToSettingActivity()
     {
 
