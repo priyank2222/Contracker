@@ -20,6 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingActivity extends AppCompatActivity {
 
+    // Ui component declaration
     private Toolbar mToolbar;
     private CircleImageView settingUserImage;
     private TextView settingUserName;
@@ -29,8 +30,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private TextView editSettingBtn;
 
-
-
+    // Firebase methods declaration
     private FirebaseAuth mAuth;
     private DatabaseReference databaseSettingReference;
     private String currentUserID;
@@ -43,7 +43,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-
+         // UI component initialization
         settingUserImage = (CircleImageView) findViewById(R.id.setting_user_image);
         settingUserName = (TextView)findViewById(R.id.setting_user_name);
         editSettingBtn = (TextView) findViewById(R.id.edit_setting_btn);
@@ -57,8 +57,8 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Contractor Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+         // firebase initialization
         mAuth = FirebaseAuth.getInstance();
-
         currentUserID = mAuth.getCurrentUser().getUid();
 
         databaseSettingReference = FirebaseDatabase.getInstance().getReference().child("Users");
