@@ -33,7 +33,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
 
 
+     // Firebase methods declaration
     private FirebaseAuth mAuth;
+    // Ui component declaration
+    
     private Button signInLoginBtn;
     private TextView signUpLoginBtn;
     private TextView usernameLoginTxt;
@@ -59,13 +62,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // firebase initialization
         mAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_login);
 
-
         extras = getIntent().getExtras();
 
+         // UI component initialization
         signUpLoginBtn = (TextView) findViewById(R.id.signUpLoginBtn);
         signInLoginBtn = (Button) findViewById(R.id.signInLoginBtn);
         usernameLoginTxt =(TextView) findViewById(R.id.usernameLoginTxt);
@@ -81,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        //button onclick listener
         signInLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,16 +93,19 @@ public class LoginActivity extends AppCompatActivity {
                 String email = usernameLoginTxt.getText().toString();
                 String password = passwordLoginTxt.getText().toString();
 
+                //login user method
                 loginUser(email,password);
 
 
             }
         });
 
+        //button onclick listener
         signUpLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //send user to register
                 Intent registerIntent = new Intent(getApplicationContext(),RegisterActivity.class);
                 startActivity(registerIntent);
 
@@ -251,6 +259,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //send user to edit profile page
     private void sendUserToEditProfileActivity() {
 
         Intent editIntent = new Intent(getApplicationContext(),EditProfileActivity.class);
@@ -260,9 +269,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //send user to main page
     private void sendUserToMainActivity() {
-
-
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
@@ -274,7 +282,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //get firebase user
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        //check user existence
         if(currentUser != null){
             sendUserToMainActivity();
         }
