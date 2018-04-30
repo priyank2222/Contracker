@@ -42,6 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    // Ui component declaration
     private Toolbar mToolbar;
     private CircleImageView editProfileImage;
     private EditText editProfileUsername;
@@ -51,6 +52,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
     private Button saveEditBtn;
     private TextView txtExplvl;
 
+    // Firebase methods declaration
     private DatabaseReference saveEditProfileDatabseReference;
     private StorageReference editProfileStorageRef;
     private FirebaseAuth mAuth;
@@ -66,6 +68,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.edit_profile_toolbar);
         experienceInputTxt = (EditText) findViewById(R.id.experience_input_txt);
         expertiseInputTxt = (EditText) findViewById(R.id.expertise_input_txt);
@@ -77,7 +80,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Edit Profile");
 
-
+          // firebase initialization
         mAuth = FirebaseAuth.getInstance();
 
         currentUserId = mAuth.getCurrentUser().getUid();
@@ -85,8 +88,9 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
 
         editProfileStorageRef = FirebaseStorage.getInstance().getReference().child("ProfileImage");
 
+        // initialize category array 
         categoryArray = getResources().getStringArray(R.array.serviceCategory);
-
+        // initialze spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner_edit_profile);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -101,6 +105,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
 
         spinner.setOnItemSelectedListener(this);
 
+        // photoes permission requests
         editProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +118,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         });
 
 
+        //save information button
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +127,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
+        // retrive data from database
         retriveUserProfileInfo();
 
 
@@ -151,6 +158,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
+    //retrive data from database
     private void retriveUserProfileInfo() {
 
           saveEditProfileDatabseReference.child(currentUserId).addValueEventListener(new ValueEventListener() {
@@ -158,6 +166,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+                //check if database has child 
                 if(dataSnapshot.hasChild("username")) {
 
                     String userName = dataSnapshot.child("username").getValue().toString();
@@ -165,22 +174,26 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
                 }
 
 
+                 //check if database has child 
                 if(dataSnapshot.hasChild("user_image")) {
                     String image = dataSnapshot.child("user_image").getValue().toString();
                     Picasso.with(EditProfileActivity.this).load(image).placeholder(R.drawable.user_default).into(editProfileImage);
 
 
                 }
+                 //check if database has child 
                 if(dataSnapshot.hasChild("experience")){
                     String experienceContent = dataSnapshot.child("experience").getValue().toString();
                     experienceInputTxt.setText(experienceContent);
                 }
 
+                 //check if database has child 
                 if(dataSnapshot.hasChild("expertise")){
                     String expertiseContent = dataSnapshot.child("expertise").getValue().toString();
                     expertiseInputTxt.setText(expertiseContent);
                 }
 
+                 //check if database has child 
                 if(dataSnapshot.hasChild("rating")){
                     String rating = dataSnapshot.child("rating").getValue().toString();
                     editProfileRatingBar.setRating(Float.parseFloat(rating));
@@ -201,6 +214,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
 
 
 
+    //gallery intent,send user to device gallery
     private void sendToGalleryPick() {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -208,6 +222,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         startActivityForResult(galleryIntent,Gallery_Pick);
     }
 
+    //save data onto firebase database
     private void saveUserProfileInfo() {
 
         String username = editProfileUsername.getText().toString();
@@ -215,6 +230,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         String expertise = expertiseInputTxt.getText().toString();
         String rating = String.valueOf(editProfileRatingBar.getRating());
 
+        //check if input is empty
         if(TextUtils.isEmpty(username)){
             Toast.makeText(this, "Username Input cannot be empty", Toast.LENGTH_SHORT).show();
         }else if(TextUtils.isEmpty(experience)){
@@ -224,6 +240,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         }
         else{
 
+            //hashmap storing data 
             HashMap userMap = new HashMap();
             userMap.put("username",username);
             userMap.put("experience",experience);
@@ -231,11 +248,13 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
             userMap.put("rating",rating);
            // userMap.put("user_image","user_default");
 
+            // save data onto database
             saveEditProfileDatabseReference.child(currentUserId).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
 
                     if(task.isSuccessful()){
+                        //task success, send user to main acitivity
                         sendUserToMainActivity();
                         Toast.makeText(EditProfileActivity.this, "Info saved successfully", Toast.LENGTH_SHORT).show();
 
@@ -251,6 +270,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
 
     }
 
+    //send user to main activity intent
     private void sendUserToMainActivity() {
 
         Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
@@ -260,9 +280,11 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
 
     }
 
+    //spinner selection 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+        //set text according to the index of category array
         expertiseInputTxt.setText(categoryArray[i]+"");
         editProfileRatingBar.setVisibility(View.VISIBLE);
         txtExplvl.setVisibility(View.VISIBLE);
@@ -280,6 +302,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
     }
 
 
+    //expilicitly intent for gallery intent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -294,6 +317,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
 
+                // firebase storage reference, store users images onto 
                 StorageReference filePath = editProfileStorageRef.child(currentUserId+".jpg");
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -301,10 +325,13 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
                         if(task.isSuccessful()){
                             Toast.makeText(EditProfileActivity.this, "Upload to Firebase storage Successfully", Toast.LENGTH_SHORT).show();
 
+                            //get the image uri from firebase storage
                             final String downloadUri = task.getResult().getDownloadUrl().toString();
+                            //save image uir to firebase database
                             saveEditProfileDatabseReference.child(currentUserId).child("user_image").setValue(downloadUri).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    //update imageview with firebase uri
                                     Toast.makeText(EditProfileActivity.this, "Image store to database", Toast.LENGTH_SHORT).show();
                                     Picasso.with(EditProfileActivity.this).load(downloadUri).into(editProfileImage);
                                   //  profileImage = downloadUri;
@@ -318,6 +345,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
                 });
 
 
+                //handle gallery intent error
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
@@ -329,18 +357,20 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
     protected void onStart() {
         super.onStart();
 
-
+        //get firebase user
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        //check user existence
         if (currentUser == null) {
 
             logoutUser();
         }
     }
 
+    //logout user method
         private void logoutUser() {
 
+            //signout firebase user and go to login activity
             mAuth.signOut();
-
             Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
             loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(loginIntent);
