@@ -32,9 +32,11 @@ import com.stripe.model.Charge;
 public class MainActivity extends AppCompatActivity {
 
 
+    // Firebase methods declaration
     private FirebaseAuth mAuth;
     private DatabaseReference usersDatabaseReference;
 
+    // Ui component declaration
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -53,13 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
+          // firebase initialization
         FirebaseApp.initializeApp(this);
-
         mAuth = FirebaseAuth.getInstance();
-
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
+          // UI component initialization
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle("Contracker");
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //get firebase user
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
 
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //check for user existence
     private void checkUserExist() {
         final String currentUserID = mAuth.getCurrentUser().getUid();
         usersDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //send user to edit profie page
     private void sendUserToEditProfileActivity() {
 
         Intent editIntent = new Intent(getApplicationContext(),EditProfileActivity.class);
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
     }
+    //send user to setting page
     private void sendUserToSettingActivity() {
 
         Intent settingIntent = new Intent(getApplicationContext(),SettingActivity.class);
@@ -177,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         return  true;
     }
 
+    //menu bar selection 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -201,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //send user to post page
     private void senderUserToPostActivity() {
         Intent postActivity = new Intent(getApplicationContext(),PostActivity.class);
         startActivity(postActivity);
