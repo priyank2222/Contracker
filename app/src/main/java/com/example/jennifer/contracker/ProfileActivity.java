@@ -24,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+      // Ui component declaration
     private Toolbar mToolbar;
     private CircleImageView profileUserImage;
     private TextView profileUserName;
@@ -38,8 +39,8 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference commentRef;
     private DatabaseReference userRef;
 
+    // Firebase methods declaration
     String currentUserID;
-
     private FirebaseAuth mAuth;
     private DatabaseReference usersReference;
     //private String currentUserID;
@@ -51,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+         // UI component initialization
         profileUserImage = (CircleImageView) findViewById(R.id.profile_user_image);
         profileUserName = (TextView)findViewById(R.id.profile_user_name);
 //        profileRatingBar = (RatingBar)findViewById(R.id.profile_rating_bar);
@@ -75,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //currentUserID = mAuth.getCurrentUser().getUid();
 
+        // firebase initialization
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
         recieveUserID = getIntent().getExtras().getString("visitUserID");
         btnMessage.setOnClickListener(new View.OnClickListener() {
@@ -97,11 +100,13 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //get userid from preview activity
         recieveUserID = getIntent().getExtras().getString("visitUserID");
         usersReference.child(recieveUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //check if database has a child
                 if (dataSnapshot.hasChild("username")) {
 
                     String userName = dataSnapshot.child("username").getValue().toString();
@@ -109,28 +114,33 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
 
+                 //check if database has a child
                 if (dataSnapshot.hasChild("user_image")) {
                     String image = dataSnapshot.child("user_image").getValue().toString();
                     Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.user_default).into(profileUserImage);
 
 
                 }
+                 //check if database has a child
                 if (dataSnapshot.hasChild("experience")) {
                     String experienceContent = dataSnapshot.child("experience").getValue().toString();
                     profileexperienceSettingContentTxt.setText(experienceContent);
                 }
 
+                 //check if database has a child
                 if (dataSnapshot.hasChild("expertise")) {
                     String expertiseContent = dataSnapshot.child("expertise").getValue().toString();
                     profileexpertiseContentTxt.setText(expertiseContent);
                 }
 
+                 //check if database has a child
                 if (dataSnapshot.hasChild("rating")) {
                     String rating = dataSnapshot.child("rating").getValue().toString();
                     profileexpertiseRatingBar.setRating(Float.parseFloat(rating));
                 }
 
 
+                 //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
                 FirebaseRecyclerAdapter<Comments, ProfileActivity.CommentsViewHolder> firebaseRecyclerAdapter =
                         new FirebaseRecyclerAdapter<Comments, ProfileActivity.CommentsViewHolder>
                                 (
@@ -140,6 +150,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         commentRef
                                 ) {
 
+                    // bind comments object to the viewholder
                             @Override
                             protected void populateViewHolder(final ProfileActivity.CommentsViewHolder viewHolder, Comments model, int position) {
                                 viewHolder.setCommentbody(model.getCommentbody());
@@ -161,6 +172,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    // view holder displaying each item
     public static class CommentsViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -169,17 +181,20 @@ public class ProfileActivity extends AppCompatActivity {
             mView = itemView;
         }
 
+        //set comment text
         public void setCommentbody(String commentBody){
 
             TextView comment = (TextView) mView.findViewById(R.id.txt_commentbody);
             comment.setText(commentBody);
         }
+        //set user name text
         public void setSenderUsername(String senderUsername) {
             TextView commentwriter = (TextView) mView.findViewById(R.id.txt_commentsender);
             commentwriter.setText(senderUsername);
 
         }
 
+        //set time text
         public void setDatestamp(String datestamp){
             TextView date = (TextView) mView.findViewById(R.id.txt_datestamp);
             date.setText(datestamp);
