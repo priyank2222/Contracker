@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PostDetailActivity extends AppCompatActivity {
 
+    // Ui component declaration
     private Toolbar mToolbar;
     private TextView postDetailJobTitle;
     private TextView postDetailLocation;
@@ -33,6 +34,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private EditText postDetailEstimatedHour;
     private Button postDetailSubmitBtn;
 
+     // Firebase methods declaration
     private FirebaseAuth mAuth;
     private DatabaseReference postDetailBidDatabaseRef;
     private DatabaseReference postsDatabaseRef;
@@ -45,6 +47,7 @@ public class PostDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
+         // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.post_detail_toolbar);
         postDetailJobTitle =(TextView)findViewById(R.id.post_detail_job_title);
         postDetailLocation =(TextView)findViewById(R.id.post_detail_location);
@@ -58,6 +61,7 @@ public class PostDetailActivity extends AppCompatActivity {
 //        getSupportActionBar().setTitle("Place a Bid");
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+          // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         recievierID = getIntent().getExtras().getString("receiverID");
@@ -66,8 +70,10 @@ public class PostDetailActivity extends AppCompatActivity {
         postsDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(recievierID);
 
 
+        //retrieve post data from database
         retrievePostsInfo();
 
+        //call notify bid method
         postDetailSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,11 +83,13 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
+    //save bid information onto database
     private void notifyBidInfo()
     {
         final String hourlyRate = postDetailHourlyRate.getText().toString();
         final String estimatedHour = postDetailEstimatedHour.getText().toString();
 
+        //check if input is empty
         if(TextUtils.isEmpty(hourlyRate) || TextUtils.isDigitsOnly(hourlyRate) == false){
             Toast.makeText(this, "Incorrect Input", Toast.LENGTH_SHORT).show();
         }
@@ -91,6 +99,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
         else {
+            //set databse data
             postDetailSubmitBtn.setEnabled(false);
             postDetailBidDatabaseRef.child(currentUserID).child(recievierID).child("hourly_rate").setValue(hourlyRate);
             postDetailBidDatabaseRef.child(currentUserID).child(recievierID).child("estimated_hour").setValue(estimatedHour);
@@ -120,6 +129,7 @@ public class PostDetailActivity extends AppCompatActivity {
         }
     }
 
+    //send user to main page
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainIntent);
@@ -129,21 +139,26 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
 
+    //retrieve data from database and convert view contents
     private void retrievePostsInfo()
     {
         postsDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //check if database has a child
                 if(dataSnapshot.hasChild("job_title")){
                     postDetailJobTitle.setText("Job Title: "+dataSnapshot.child("job_title").getValue().toString());
                 }
+                  //check if database has a child
                 if(dataSnapshot.hasChild("job_location")){
                     postDetailLocation.setText("Job Location: "+dataSnapshot.child("job_location").getValue().toString());
                 }
+                  //check if database has a child
                 if(dataSnapshot.hasChild("job_description")){
                     postDetailDescription.setText("Job Description: "+dataSnapshot.child("job_description").getValue().toString());
                 }
+                  //check if database has a child
                 if(dataSnapshot.hasChild("service_category")){
                     postDetailCategory.setText("Category: "+dataSnapshot.child("service_category").getValue().toString());
                 }
