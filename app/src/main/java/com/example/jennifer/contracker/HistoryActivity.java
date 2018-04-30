@@ -23,8 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HistoryActivity extends AppCompatActivity {
 
+     // Ui component declaration
     private RecyclerView historyList;
     private Toolbar mToolbar;
+     // Firebase methods declaration
     private DatabaseReference historyRef;
     private DatabaseReference userRef;
     private DatabaseReference bidRef;
@@ -36,17 +38,17 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+         // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         historyRef = FirebaseDatabase.getInstance().getReference().child("History").child(currentUserID);
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         bidRef = FirebaseDatabase.getInstance().getReference().child("Bids");
+         // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.history_toolbar);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("History");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         historyList = (RecyclerView) findViewById(R.id.history_list);
 
@@ -56,6 +58,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<History,HistoryViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<History,HistoryViewHolder>
                         (
@@ -66,10 +69,12 @@ public class HistoryActivity extends AppCompatActivity {
                         ) {
 
 
+              // bind history object to the viewholder
                     @Override
                     protected void populateViewHolder(final HistoryViewHolder viewHolder, History model, int position)
                     {
 
+                        //set date and job title
                         viewHolder.setDate(model.getDate());
                         viewHolder.setJob_title(model.getJob_title());
 
@@ -83,18 +88,19 @@ public class HistoryActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot)
                             {
 
+                                //check if data exists
                                 if (dataSnapshot.exists()) {
                                     String requestType = dataSnapshot.getValue().toString();
                                     if (requestType.equals("sent"))
                                     {
-
-
                                         userRef.child(listUserID).addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 String name = dataSnapshot.child("username").getValue().toString();
 
+                                                //set related view username
                                                 viewHolder.setUsername(name);
+                                                //set onclick listner on item view
                                                 viewHolder.mView.findViewById(R.id.history_comment_btn).setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
@@ -121,6 +127,7 @@ public class HistoryActivity extends AppCompatActivity {
 
                                                         };
 
+                                                //alert dialog display
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
                                                 builder.setTitle("Select Options");
 
@@ -182,6 +189,7 @@ public class HistoryActivity extends AppCompatActivity {
         historyList.setAdapter(firebaseRecyclerAdapter);
     }
 
+    //send user to comment view
     private void sendUserToComment(String listUserID)
     {
         Intent commentActivity = new Intent(getApplicationContext(),CommentDetailActivity.class);
@@ -189,6 +197,7 @@ public class HistoryActivity extends AppCompatActivity {
         startActivity(commentActivity);
     }
 
+    // view holder displaying each item
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -198,17 +207,20 @@ public class HistoryActivity extends AppCompatActivity {
         }
 
 
+        //set user name text
         public void setUsername(String name) {
             TextView username = (TextView) mView.findViewById(R.id.history_username);
             username.setText(name);
         }
 
 
+        //set date text
         public void setDate(String date) {
             TextView serviceDate = (TextView) mView.findViewById(R.id.history_date);
             serviceDate.setText(date);
         }
 
+        //set job title text
         public void setJob_title(String job_title) {
             TextView title = (TextView) mView.findViewById(R.id.history_job_title);
             title.setText(job_title);
