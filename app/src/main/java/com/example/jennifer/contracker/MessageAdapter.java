@@ -109,6 +109,7 @@ public class MessageAdapter extends RecyclerView.Adapter
         TextView messageTxt, timeTxt,nameTxt;
         CircleImageView profileImage;
 
+        //constructor of message text and time text, name text and profile image
         public ReceivedMessageHolder(View itemView) {
             super(itemView);
 
@@ -118,6 +119,7 @@ public class MessageAdapter extends RecyclerView.Adapter
             profileImage = (CircleImageView) itemView.findViewById(R.id.image_message_profile);
         }
 
+        //bind data to specific xml ui components
         void bind(Messages message)
         {
             userRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -156,13 +158,14 @@ public class MessageAdapter extends RecyclerView.Adapter
 
         }
     }
-
+    //sender message view
     private class SenderMessageHolder extends RecyclerView.ViewHolder
     {
 
         TextView messageTxt, timeTxt;
 
 
+        //constructor of message text and time text
         public SenderMessageHolder(View itemView) {
             super(itemView);
 
@@ -172,6 +175,7 @@ public class MessageAdapter extends RecyclerView.Adapter
 
         }
 
+        //bind data to specific xml ui components
         void bind(Messages message)
         {
             messageTxt.setText(message.getMessage());
