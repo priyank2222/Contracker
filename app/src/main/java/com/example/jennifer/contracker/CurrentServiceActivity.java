@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CurrentServiceActivity extends AppCompatActivity {
 
-     // Ui component declaration
+    // Ui component declaration
     private RecyclerView serviceList;
     private Toolbar mToolbar;
     // Firebase methods declaration
@@ -52,7 +52,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_service);
 
-         // firebase initialization
+        // firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         serviceRef = FirebaseDatabase.getInstance().getReference().child("Services").child(currentUserID);
@@ -63,7 +63,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
         postsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         jobinforef = FirebaseDatabase.getInstance().getReference().child("Services");
 
-         // UI component initialization
+        // UI component initialization
         mToolbar = (Toolbar) findViewById(R.id.toolbar_service);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Current Service");
@@ -79,7 +79,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-         //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
+        //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
         FirebaseRecyclerAdapter<Services,ServicesViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Services, ServicesViewHolder>
                         (
@@ -89,7 +89,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                 serviceRef
                         ) {
 
-                 // bind services object to the viewholder
+                    // bind services object to the viewholder
                     @Override
                     protected void populateViewHolder(final ServicesViewHolder viewHolder, Services model, int position)
                     {
@@ -124,10 +124,8 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
                                                     viewHolder.setUser_Image(userImage,getApplicationContext());
                                                 }
-//                                                String image = dataSnapshot.child("user_image").getValue().toString();
 
                                                 viewHolder.setUsername(name + " is completing your task.");
-//                                                viewHolder.setUser_Image(image,getApplicationContext());
 
                                             }
 
@@ -146,9 +144,10 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                                     }
                                                 });
 
-                                        //sets
+                                        //sets pay button invisible
                                         viewHolder.mView.findViewById(R.id.current_service_pay_btn).setVisibility(View.INVISIBLE);
 
+                                        //if job has been completed and not paid, set visibility of buttons
                                         jobinforef.addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -166,7 +165,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
                                             }
                                         });
-                                       //pay button listener
+                                        //pay button listener
                                         viewHolder.mView.findViewById(R.id.current_service_pay_btn)
                                                 .setOnClickListener(new View.OnClickListener() {
                                                     @Override
@@ -177,6 +176,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
                                         viewHolder.mView.findViewById(R.id.current_service_completed_btn).setVisibility(View.INVISIBLE);
 
+                                        //set button visibility when job has been paid
                                         jobinforef.child(currentUserID).child(listUserID).addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -199,11 +199,34 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                                     public void onClick(View view) {
                                                         viewHolder.mView.findViewById(R.id.current_service_completed_btn).setEnabled(true);
                                                         completeTask(listUserID);
-                                                        //Toast.makeText(CurrentServiceActivity.this, "Task is done.", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
 
 
+                                        //sets jobtitle and job location
+                                        postsRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                if(dataSnapshot.hasChild("job_title")){
+
+                                                    String jobTitle = dataSnapshot.child("job_title").getValue().toString();
+
+                                                    viewHolder.setJob_Title(jobTitle);
+                                                }
+                                                if(dataSnapshot.hasChild("job_location")){
+
+                                                    String jobLocation = dataSnapshot.child("job_location").getValue().toString();
+
+                                                    viewHolder.setJob_Location(jobLocation);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
 
                                         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -212,7 +235,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
                                                 CharSequence options[] = new CharSequence[]
                                                         {
-                                                                "Cancel Task"
+                                                                "User Profile"
 
                                                         };
 
@@ -225,7 +248,9 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
 
                                                         if (pos == 0) {
-
+                                                            Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+                                                            profileIntent.putExtra("visitUserID", listUserID);
+                                                            startActivity(profileIntent);
 
                                                         }
                                                     }
@@ -257,6 +282,30 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                             }
                                         });
 
+                                        //sets jobtitle and job location
+                                        postsRef.child(listUserID).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                if(dataSnapshot.hasChild("job_title")){
+
+                                                    String jobTitle = dataSnapshot.child("job_title").getValue().toString();
+
+                                                    viewHolder.setJob_Title(jobTitle);
+                                                }
+                                                if(dataSnapshot.hasChild("job_location")){
+
+                                                    String jobLocation = dataSnapshot.child("job_location").getValue().toString();
+
+                                                    viewHolder.setJob_Location(jobLocation);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
 
 
                                         //message button listener
@@ -290,7 +339,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
                                                 CharSequence options[] = new CharSequence[]
                                                         {
-                                                                "Cancel Task"
+                                                                "User Profile"
                                                         };
 
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(CurrentServiceActivity.this);
@@ -301,7 +350,9 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                                     public void onClick(DialogInterface dialogInterface, int pos) {
 
                                                         if (pos == 0) {
-                                                            cancelTask(listUserID);
+                                                            Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+                                                            profileIntent.putExtra("visitUserID", listUserID);
+                                                            startActivity(profileIntent);
                                                         }
 
 
@@ -343,13 +394,6 @@ public class CurrentServiceActivity extends AppCompatActivity {
         startActivity(chatIntent);
     }
 
-    private void finishTask(String listUserID) {
-    }
-
-    private void cancelTask(String listUserID) {
-
-
-    }
 
     //when user completes the task, save infomation to database
     private void jobComplete(String currentUserID, String listUserID){
@@ -359,7 +403,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
     //create data when user completes the task
     private void completeTask(final String listUserID)
     {
-        //create time stamp 
+        //create time stamp
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MM-dd-yyyy");
         final String saveCurrentDate = currentDate.format(calendar.getTime());
@@ -372,6 +416,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
                 //check data node existence
                 if (dataSnapshot.exists())
                 {
+
                     //get data from firebase
                     final String jobTitle = dataSnapshot.child("job_title").getValue().toString();
                     final String jobDescription = dataSnapshot.child("job_description").getValue().toString();
@@ -389,7 +434,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
 
-                                     //set data onto firebase
+                                    //set data onto firebase
                                     historyRef.child(listUserID).child(currentUserID).child("job_title").setValue(jobTitle);
                                     historyRef.child(listUserID).child(currentUserID).child("job_description").setValue(jobDescription);
                                     historyRef.child(listUserID).child(currentUserID).child("job_location").setValue(jobLocation);
@@ -400,17 +445,17 @@ public class CurrentServiceActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
 
-                                                    //when task succed, removing the data in database
+                                                    //when task succeed, removing the data in database
                                                     serviceDeleteRef.child(currentUserID).child(listUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()) {
-                                                                //when task succed, removing the data in database
+                                                                //when task succeed, removing the data in database
                                                                 serviceDeleteRef.child(listUserID).child(currentUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         if (task.isSuccessful()) {
-                                                                            //when task succed, removing the data in database
+                                                                            //when task succeed, removing the data in database
                                                                             postsRef.child(currentUserID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                 @Override
                                                                                 public void onComplete(@NonNull Task task) {
@@ -446,7 +491,7 @@ public class CurrentServiceActivity extends AppCompatActivity {
 
 
 
-     // view holder displaying each item
+    // view holder displaying each item
     public static class ServicesViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -461,12 +506,14 @@ public class CurrentServiceActivity extends AppCompatActivity {
             TextView hour = (TextView) mView.findViewById(R.id.current_service_hours);
             hour.setText(estimated_hour +"hr");
         }
-        //set hourlt rate text
+
+        //set hourly rate text
         public void setHourly_rate(String hourly_rate) {
             TextView rate = (TextView) mView.findViewById(R.id.current_service_price);
             rate.setText("$"+hourly_rate +"per/hr");
 
         }
+
 
         //set username text
         public void setUsername(String name) {
@@ -480,11 +527,22 @@ public class CurrentServiceActivity extends AppCompatActivity {
             Picasso.with(ctx).load(image).into(profileImage);
         }
 
-        //set data 
+        //set data
         public void setDate(String date) {
             TextView serviceDate = (TextView) mView.findViewById(R.id.current_service_date);
             serviceDate.setText(date);
         }
 
+        //set job title
+        public void setJob_Title(String jobTitle) {
+            TextView job = (TextView) mView.findViewById(R.id.current_service_job_title);
+            job.setText(jobTitle);
+        }
+
+        //set job location
+        public void setJob_Location(String jobLocation) {
+            TextView location = (TextView) mView.findViewById(R.id.current_service_location);
+            location.setText(jobLocation);
+        }
     }
 }

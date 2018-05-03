@@ -33,13 +33,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CurrentBidActivity extends AppCompatActivity {
 
-     // Ui component declaration
+    //UI component declaration
     private RecyclerView bidsList;
     private Toolbar mToolbar;
-    // Firebase methods declaration
+    //Firebase methods declaration
     private DatabaseReference rootRef;
     private DatabaseReference userRef;
     private DatabaseReference bidsRef;
+    private DatabaseReference postRef;
     private DatabaseReference serviceRef;
     private FirebaseAuth mAuth;
     String currentUserID;
@@ -48,18 +49,22 @@ public class CurrentBidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_bid);
-         // firebase initialization
+        //firebase initialization
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         rootRef = FirebaseDatabase.getInstance().getReference().child("Bids").child(currentUserID);
         bidsRef = FirebaseDatabase.getInstance().getReference().child("Bids");
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         serviceRef = FirebaseDatabase.getInstance().getReference().child("Services");
-         // UI component initialization
+        //UI component initialization
+        postRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         mToolbar = (Toolbar) findViewById(R.id.bids_toolbar);
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Current Bids");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         bidsList = (RecyclerView) findViewById(R.id.bids_list);
 
         bidsList.setLayoutManager(new LinearLayoutManager(this));
@@ -69,7 +74,7 @@ public class CurrentBidActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //firebase recycler adpeter declaration,bind data from the Firebase Realtime Database to app's UI.
+        //firebase recycler adapter declaration, bind data from the Firebase Realtime Database to app's UI
         FirebaseRecyclerAdapter<Bids,BidsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Bids, BidsViewHolder>
                         (
@@ -78,165 +83,187 @@ public class CurrentBidActivity extends AppCompatActivity {
                                 BidsViewHolder.class,
                                 rootRef
                         ) {
-            // bind bids object to the viewholder
-            @Override
-            protected void populateViewHolder(final BidsViewHolder viewHolder, Bids model, int position)
-            {
-
-                viewHolder.setEstimated_hour(model.getEstimated_hour());
-                viewHolder.setHourly_rate(model.getHourly_rate());
-
-                final String listUserID = getRef(position).getKey();
-                DatabaseReference getTypeRef = getRef(position).child("request_type").getRef();
-
-                getTypeRef.addValueEventListener(new ValueEventListener() {
+                    //binds bids object to the viewholder
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
+                    protected void populateViewHolder(final BidsViewHolder viewHolder, Bids model, int position)
                     {
 
-                        if (dataSnapshot.exists()) {
-                            String requestType = dataSnapshot.getValue().toString();
-                            if (requestType.equals("received"))
+                        viewHolder.setEstimated_hour(model.getEstimated_hour());
+                        viewHolder.setHourly_rate(model.getHourly_rate());
+
+                        final String listUserID = getRef(position).getKey();
+                        DatabaseReference getTypeRef = getRef(position).child("request_type").getRef();
+
+                        getTypeRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot)
                             {
-                                userRef.child(listUserID).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                        if(dataSnapshot.hasChild("user_image")){
-
-                                            String userImage = dataSnapshot.child("user_image").getValue().toString();
-
-                                            viewHolder.setUser_Image(userImage,getApplicationContext());
-                                        }
-                                        String name = dataSnapshot.child("username").getValue().toString();
-//                                        String image = dataSnapshot.child("user_image").getValue().toString();
-
-                                        viewHolder.setUsername(name);
-//                                        viewHolder.setUser_Image(image, getApplicationContext());
-
-
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-                                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view)
+                                if (dataSnapshot.exists()) {
+                                    String requestType = dataSnapshot.getValue().toString();
+                                    if (requestType.equals("received"))
                                     {
-
-                                        CharSequence options[] = new CharSequence[]
-                                                {
-                                                        "User Profile",
-                                                        "Accept Bid",
-                                                        "Decline Bid"
-
-                                                };
-                                        //alert dialog displaying when user clicks on the item list
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(CurrentBidActivity.this);
-                                        builder.setTitle("Select Options");
-
-                                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                                        userRef.child(listUserID).addValueEventListener(new ValueEventListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialogInterface, int pos) {
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                if (pos == 0){
-                                                    Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
-                                                    profileIntent.putExtra("visitUserID", listUserID);
-                                                    startActivity(profileIntent);
+                                                if(dataSnapshot.hasChild("user_image")){
+
+                                                    String userImage = dataSnapshot.child("user_image").getValue().toString();
+
+                                                    viewHolder.setUser_Image(userImage,getApplicationContext());
                                                 }
-                                                if (pos == 1) {
-                                                    acceptBid(listUserID);
-                                                }
-                                                if (pos == 2) {
-                                                    declineBid(listUserID);
-                                                }
+                                                String name = dataSnapshot.child("username").getValue().toString();
+
+                                                viewHolder.setUsername(name);
+
+
+
+
 
 
                                             }
-                                        });
-                                        builder.show();
-                                    }
 
-                                });
-
-                            }
-                            else if(requestType.equals("sent"))
-                            {
-                                userRef.child(listUserID).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        String name = dataSnapshot.child("username").getValue().toString();
-
-                                        viewHolder.setUsername(name);
-                                        viewHolder.mView.findViewById(R.id.current_bid_profile_image)
-                                                .setVisibility(View.INVISIBLE);
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-
-
-                                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view)
-                                    {
-
-                                        CharSequence options[] = new CharSequence[]
-                                                {
-                                                        "Cancel Bid"
-
-                                                };
-
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(CurrentBidActivity.this);
-                                        builder.setTitle("Select Options");
-
-                                        builder.setItems(options, new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialogInterface, int pos) {
-
-
-
-                                                if (pos == 0) {
-
-
-                                                    cancelBid(listUserID);
-                                                }
-
+                                            public void onCancelled(DatabaseError databaseError) {
 
                                             }
                                         });
-                                        builder.show();
+
+                                        postRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.hasChild("job_title")){
+
+                                                    String jobTitle = dataSnapshot.child("job_title").getValue().toString();
+
+                                                    viewHolder.setJob_Title(jobTitle);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+                                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+
+                                                CharSequence options[] = new CharSequence[]
+                                                        {
+                                                                "User Profile",
+                                                                "Accept Bid",
+                                                                "Decline Bid"
+
+                                                        };
+                                                //alert dialog displaying when user clicks on the item list
+
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(CurrentBidActivity.this);
+                                                builder.setTitle("Select Options");
+
+                                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int pos) {
+
+                                                        if (pos == 0){
+                                                            Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+                                                            profileIntent.putExtra("visitUserID", listUserID);
+                                                            startActivity(profileIntent);
+                                                        }
+                                                        if (pos == 1) {
+                                                            acceptBid(listUserID);
+                                                        }
+                                                        if (pos == 2) {
+                                                            declineBid(listUserID);
+                                                        }
+
+
+                                                    }
+                                                });
+                                                builder.show();
+                                            }
+
+                                        });
+
                                     }
+                                    else if(requestType.equals("sent"))
+                                    {
+                                        userRef.child(listUserID).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                String name = dataSnapshot.child("username").getValue().toString();
 
-                                });
 
+                                                viewHolder.setUsername(name);
+                                                viewHolder.mView.findViewById(R.id.current_bid_profile_image)
+                                                        .setVisibility(View.INVISIBLE);
+
+
+
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+
+
+                                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+
+                                                CharSequence options[] = new CharSequence[]
+                                                        {
+                                                                "Cancel Bid"
+
+                                                        };
+
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(CurrentBidActivity.this);
+                                                builder.setTitle("Select Options");
+
+                                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int pos) {
+
+
+
+                                                        if (pos == 0) {
+
+
+                                                            cancelBid(listUserID);
+                                                        }
+
+
+                                                    }
+                                                });
+                                                builder.show();
+                                            }
+
+                                        });
+
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
                             }
-                        }
+                        });
+
+
+
+
                     }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
-
-            }
-        };
+                };
 
         bidsList.setAdapter(firebaseRecyclerAdapter);
     }
@@ -245,7 +272,7 @@ public class CurrentBidActivity extends AppCompatActivity {
         declineBid(listUserID);
     }
 
-    // decline bid method to cancel the bid request 
+    // decline bid method to cancel the bid request
     private void declineBid(final String listUserID)
     {
         // remove the data from firebase database
@@ -273,7 +300,7 @@ public class CurrentBidActivity extends AppCompatActivity {
     //accept bid method when user clicks accept bid
     private void acceptBid(final String listUserID)
     {
-        //get date and time 
+        //get date and time
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MM-dd-yyyy");
         final String saveCurrentDate = currentDate.format(calendar.getTime());
@@ -286,10 +313,10 @@ public class CurrentBidActivity extends AppCompatActivity {
                 if(dataSnapshot.exists())
                 {
 
+
                     final String estimatedHour = dataSnapshot.child("estimated_hour").getValue().toString();
                     final String hourlyRate= dataSnapshot.child("hourly_rate").getValue().toString();
 
-                    //bind data to UI
                     serviceRef.child(currentUserID).child(listUserID).child("estimated_hour").setValue(estimatedHour);
                     serviceRef.child(currentUserID).child(listUserID).child("hourly_rate").setValue(hourlyRate);
                     serviceRef.child(currentUserID).child(listUserID).child("request_type").setValue("sent");
@@ -303,6 +330,7 @@ public class CurrentBidActivity extends AppCompatActivity {
                                     serviceRef.child(listUserID).child(currentUserID).child("request_type").setValue("received");
                                     serviceRef.child(listUserID).child(currentUserID).child("date").setValue(saveCurrentDate)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                //bind data to UI
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
 
@@ -339,7 +367,7 @@ public class CurrentBidActivity extends AppCompatActivity {
 
     }
 
-     // view holder displaying each item
+    // view holder displaying each item
     public static class BidsViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -347,13 +375,14 @@ public class CurrentBidActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
         }
- 
+
         //set estimated hours text
         public void setEstimated_hour(String estimated_hour){
 
             TextView hour = (TextView) mView.findViewById(R.id.current_bid_hour);
             hour.setText(estimated_hour +"hr");
         }
+
         //set hourly rate text
         public void setHourly_rate(String hourly_rate) {
             TextView rate = (TextView) mView.findViewById(R.id.current_bid_price);
@@ -371,6 +400,12 @@ public class CurrentBidActivity extends AppCompatActivity {
         public void setUser_Image(String image, Context ctx) {
             CircleImageView profileImage = (CircleImageView) mView.findViewById(R.id.current_bid_profile_image);
             Picasso.with(ctx).load(image).into(profileImage);
+        }
+
+        //set job title
+        public void setJob_Title(String jobTitle) {
+            TextView job = (TextView) mView.findViewById(R.id.current_bid_job_title);
+            job.setText(jobTitle);
         }
     }
 }
