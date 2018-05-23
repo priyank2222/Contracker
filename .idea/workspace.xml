@@ -7,98 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43f13edc-8d0f-4991-b5ae-d8967ed10dca" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" afterPath="$PROJECT_DIR$/app/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/google-services.json" afterPath="$PROJECT_DIR$/app/google-services.json" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/jennifer/contracker/ExampleInstrumentedTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/jennifer/contracker/ExampleInstrumentedTest.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/AllUsers.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/AllUsers.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/AllUsersActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/AllUsersActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Bids.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Bids.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChargePaid.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChargePaid.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChargePayment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChargePayment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChatActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Chats.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Chats.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChatsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChatsFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CommentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CommentActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CommentDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CommentDetailActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Comments.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Comments.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CurrentBidActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CurrentBidActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CurrentServiceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/CurrentServiceActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/EditProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/EditProfileActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/FriendsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/FriendsFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/History.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/History.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/HistoryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/HistoryActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/JobsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/JobsFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/LoginActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/MessageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/MessageAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Messages.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Messages.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/PostActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/PostActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/PostDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/PostDetailActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Posts.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Posts.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ProfileActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/RegisterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/RegisterActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Services.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/Services.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/SettingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/SettingActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/TabsPagerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/TabsPagerAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/WelcomeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/WelcomeActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/getPaidActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/getPaidActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_selector.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_selector.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/custom_layout_border_color.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_layout_border_color.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/custom_layout_border_white.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_layout_border_white.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_orange.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_orange.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_puple.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_puple.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_all_users.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_all_users.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_charge_payment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_charge_payment.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_comment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_comment.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_comment_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_comment_detail.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_current_bid.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_current_bid.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_current_service.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_current_service.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_getpaid1.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_getpaid1.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_history.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_history.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_paymentsubmitted.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_paymentsubmitted.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_post.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_post.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profilecomment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profilecomment.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/all_comment_display_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/all_comment_display_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/all_current_bid_display_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/all_current_bid_display_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/all_current_service_display_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/all_current_service_display_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/all_history_display_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/all_history_display_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/all_posts_display_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/all_posts_display_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/all_users_display_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/all_users_display_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/char_bar_custom_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/char_bar_custom_view.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_chats.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_chats.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_friends.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_friends.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_jobs.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_jobs.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_message_received.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_message_received.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_message_sent.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_message_sent.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/jennifer/contracker/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/jennifer/contracker/ExampleUnitTest.java" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change beforePath="$PROJECT_DIR$/gradlew" afterPath="$PROJECT_DIR$/gradlew" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" afterPath="$PROJECT_DIR$/gradlew.bat" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -124,27 +35,23 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2055">
+            <state relative-caret-position="0">
               <caret line="165" column="48" lean-forward="false" selection-start-line="165" selection-start-column="48" selection-end-line="165" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegisterActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RegisterActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/RegisterActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="129" column="17" lean-forward="false" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="-56">
+              <caret line="45" column="57" lean-forward="false" selection-start-line="45" selection-start-column="57" selection-end-line="45" selection-end-column="57" />
+              <folding>
+                <element signature="e#4927#5732#0" expanded="true" />
+                <element signature="e#5731#5732#0" expanded="true" />
+              </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app-debug.apk" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk">
-          <provider selected="true" editor-type-id="apk-viewer">
-            <state />
           </provider>
         </entry>
       </file>
@@ -2275,6 +2182,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2340,7 +2248,6 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -2517,6 +2424,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2524,7 +2432,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19951633" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19951633" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2588,6 +2496,86 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2055">
+          <caret line="165" column="48" lean-forward="false" selection-start-line="165" selection-start-column="48" selection-end-line="165" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="129" column="17" lean-forward="false" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="38" />
+          <folding>
+            <element signature="e#4927#5732#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/JobsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2610">
+          <caret line="201" column="47" lean-forward="false" selection-start-line="201" selection-start-column="41" selection-end-line="201" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/TabsPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="29" column="64" lean-forward="false" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/PostActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/MessageAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2370">
+          <caret line="182" column="13" lean-forward="false" selection-start-line="182" selection-start-column="13" selection-end-line="187" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/ChargePayment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk">
+      <provider selected="true" editor-type-id="apk-viewer">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2055">
@@ -2664,7 +2652,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1680">
           <caret line="129" column="17" lean-forward="true" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#4927#5732#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2680,7 +2671,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#4927#5732#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2805,14 +2799,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/JobsFragment.java">
@@ -2865,16 +2859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2055">
+        <state relative-caret-position="0">
           <caret line="165" column="48" lean-forward="false" selection-start-line="165" selection-start-column="48" selection-end-line="165" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="129" column="17" lean-forward="false" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -2882,6 +2868,17 @@
     <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk">
       <provider selected="true" editor-type-id="apk-viewer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jennifer/contracker/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-56">
+          <caret line="45" column="57" lean-forward="false" selection-start-line="45" selection-start-column="57" selection-end-line="45" selection-end-column="57" />
+          <folding>
+            <element signature="e#4927#5732#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
